@@ -1,0 +1,1 @@
+json.(subscriber, :id, :name, :email)

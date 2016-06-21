@@ -1,0 +1,44 @@
+<aside class="flash row">
+  <article flash-alert duration="0" active-class="alert" class="col-md-6 col-md-offset-3">
+    {{flash.message}}
+  </article>
+</aside>
+<section class="col-md-8 col-md-offset-1">
+<form class="form-horizontal" role="form" class="edit-user">
+  <div class="form-group" ng-class="{'has-warning has-feedback':errors.name}">
+    <label
+      for="subject"
+      class="col-md-2 control-label col-md-offset-2">
+      Assunto
+    </label>
+    <div class="col-md-5">
+      <input type="text" name="subject" class="form-control" placeholder="e.g. Baked Alaska" ng-model="campaign.subject">
+    </div>
+	<label
+      for="body_text"
+      class="col-md-2 control-label col-md-offset-2">
+      Texto
+    </label>
+    <div class="col-md-5">
+      <input type="text" name="body_text" class="form-control" placeholder="e.g. Baked Alaska" ng-model="campaign.body_text">
+    </div>
+    <label
+        for="list"
+        class="col-md-2 control-label col-md-offset-2">
+        Lista
+    </label>
+    <div class="col-md-5">
+      <select ng-options="list.id as list.name for list in lists" ng-model="output" multiple="multiple"></select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-3">
+      <button class="btn btn-default" ng-click="cancel()"> Cancel</button>
+    </div>
+    <div class="col-md-9 text-right">
+      <button class="btn btn-primary" ng-click="save()"> Save </button>
+      <button class="btn btn-primary" ng-click="send()">Send </button>
+    </div>
+  </div>
+</form>
+</section>

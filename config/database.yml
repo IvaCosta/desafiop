@@ -1,0 +1,25 @@
+# PostgreSQL. Versions 8.2 and up are supported.
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: newsletter_development
+  username: newsletter
+
+  
+test:
+  <<: *default
+  database: newsletter_test
+  username: newsletter
+  password:
+
+
+production:
+  <<: *default
+  database: newsletter_production
+  username: newsletter
+  password: <%= ENV['NEWSLETTER_DATABASE_PASSWORD'] %>

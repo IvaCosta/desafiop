@@ -1,0 +1,14 @@
+<h2>Campaign: {{campaign.subject}}</h2>
+<hr/>
+<div >
+<div class="media" ng-repeat="list in campaign.lists">
+    <div class="media">
+        <div class="media-body">
+            <h4 class="media-heading">
+                <a ng-click="view(list.id)">{{list.name}}</a>
+                </div>
+            </h4>
+        </div>
+    </div>
+</div>
+</div>

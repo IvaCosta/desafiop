@@ -1,0 +1,23 @@
+<div ng-app="newsletter">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Go News!</a>
+      </div>
+      <ul class="nav navbar-nav" ng-controller="HomeController">
+        <li ng-class="{active: activetab == '/Home'}"><a href="#/Home">Home</a></li>
+        <li ng-class="{active: activetab == '/lists'}"><a href="#/lists">Subscribers</a></li>
+        <li ng-class="{active: activetab == '/campaigns'}"><a href="/#/campaigns">Campaigns</a></li>
+		<li ng-hide="signedIn()"><a href="#/login">Log In</a></li>
+        <li ng-hide="signedIn()"><a href="#/register">Register</a></li>
+        <li ng-show="signedIn()"><a href="#/">{{ user.username }}</a></li>
+        <li ng-show="signedIn()"><a ng-click="logout()">Log Out</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="view-container">
+      <div ng-view class="view-frame animate-view"></div>
+    </div>
+  </div>
+</div>

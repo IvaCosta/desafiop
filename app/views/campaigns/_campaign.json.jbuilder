@@ -1,0 +1,1 @@
+json.(campaign, :id, :subject, :body_text)
