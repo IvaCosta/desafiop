@@ -20,8 +20,7 @@ controllers.controller("CampaignController", [ '$scope', '$routeParams', '$resou
       $scope.campaign = {}
     $scope.lists = List.query()
     $scope.campaign_lists = List.query(campaignId: $routeParams.campaignId)
-    $scope.output = ""
-    $scope.out = []
+    $scope.list_options = ""
     $scope.back   = -> $location.path("/campaigns")
     $scope.edit   = -> $location.path("/campaigns/#{$scope.campaign.id}/edit")
     $scope.view = (listId) -> $location.path("/lists/#{listId}")
@@ -34,11 +33,11 @@ controllers.controller("CampaignController", [ '$scope', '$routeParams', '$resou
     $scope.save =  ->
       onError = (_httpResponse)-> flash.error = "Something went wrong"
       if $scope.campaign.id
-        $scope.campaign.$save({list_ids: JSON.stringify($scope.output)},
+        $scope.campaign.$save({list_ids: JSON.stringify($scope.list_options)},
           ( ()-> $location.path("/campaigns/#{$scope.campaign.id}") ),
           onError)
       else
-        Campaign.create({list_ids: JSON.stringify($scope.output)},$scope.campaign,
+        Campaign.create({list_ids: JSON.stringify($scope.list_options)},$scope.campaign,
           ( (newCampaign)-> $location.path("/campaigns/#{newCampaign.id}") ),
           onError
         )
@@ -46,11 +45,11 @@ controllers.controller("CampaignController", [ '$scope', '$routeParams', '$resou
     $scope.send = ->
       onError = (_httpResponse)-> flash.error = "Something went wrong"
       if $scope.campaign.id
-        $scope.campaign.$save({list_ids: JSON.stringify($scope.output), send: true},
+        $scope.campaign.$save({list_ids: JSON.stringify($scope.list_options), send: true},
           ( ()-> $location.path("/campaigns/#{$scope.campaign.id}") ),
           onError)
       else   
-        Campaign.create({list_ids: JSON.stringify($scope.output), send: true},$scope.campaign,
+        Campaign.create({list_ids: JSON.stringify($scope.list_options), send: true},$scope.campaign,
           ( (newCampaign)-> $location.path("/campaigns") ),
           onError
         )
