@@ -30,16 +30,29 @@ class CampaignsController < ApplicationController
        @lists.each do |l|
           @subscribers = l.subscribers.map(&:email)
         end
-        subscribers = @subscribers.map(&:inspect).join(', ')
-        send_email(subscribers, params[:subject],params[:body_text])
+        send_email(@subscribers, params[:subject],params[:body_text])		
     end
-
     render 'show', status: 201
   end
 
   def update
     campaign = Campaign.find(params[:id])
-    campaign.update_attributes(params.require(:campaign).permit(:subject, :body_text))
+	if params[:list_ids]  
+      CampaignList.destroy_all("campaign_id = #{campaign.id}")	
+      lists = eval(params[:list_ids])      
+      lists.each do |l|
+        CampaignList.create(:campaign_id => campaign.id, :list_id =>l)
+      end
+	  campaign.update_attributes(params.require(:campaign).permit(:subject, :body_text))	
+    end
+	if params[:send]
+       @subscribers = nil
+       @lists = campaign.lists
+       @lists.each do |l|
+          @subscribers = l.subscribers.map(&:email)
+        end
+        send_email(@subscribers, params[:subject],params[:body_text])		
+    end
     head :no_content
   end
 

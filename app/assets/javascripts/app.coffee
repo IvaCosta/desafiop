@@ -15,7 +15,7 @@ newsletter.config([ '$routeProvider', 'flashProvider',
     flashProvider.successClassnames.push("alert-success")
 
     $routeProvider
-      .when('/Home',
+      .when('/',
         templateUrl: "home/index.html"
         controller: 'HomeController'
       ).when('/lists',
@@ -68,7 +68,6 @@ newsletter.config([ '$routeProvider', 'flashProvider',
              $location.path("/")
         ]
       )
-
 ])
 
 controllers = angular.module('controllers',[])

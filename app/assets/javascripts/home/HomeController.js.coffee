@@ -13,7 +13,5 @@ controllers.controller("HomeController", [ '$scope', '$routeParams', '$location'
       $scope.user = user  
     $scope.$on 'devise:logout', (e, user) ->
       $scope.user = {}
-  
-    
     
 ])

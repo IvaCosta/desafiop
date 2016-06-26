@@ -11,7 +11,7 @@ controllers.controller("CampaignsController", [ '$scope', '$routeParams', '$loca
     $scope.newCampaign = -> $location.path("/campaigns/new")
     $scope.edit      = (campaignId)-> $location.path("/campaigns/#{campaignId}/edit")
     $scope.deleteCampaign = (campaign) ->
-      if (confirm("Are you sure you want to delete this user?"))
+      if (confirm("Are you sure you want to delete this campaign?"))
         campaign.$delete ->
           $scope.campaigns = Campaign.query()
           $location.path("/campaigns/")

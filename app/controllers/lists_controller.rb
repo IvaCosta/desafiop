@@ -3,10 +3,13 @@ class ListsController < ApplicationController
    before_filter :authenticate_user!
 
   def index
-    @lists = if params[:keywords]
-                 List.where('name ilike ?',"%#{params[:keywords]}%")
-               else
-                  List.all
+    if params[:keywords]
+             @lists = List.where('name ilike ?',"%#{params[:keywords]}%")
+               elsif params[:campaignId]
+			   @campaign = Campaign.find(params[:campaignId])
+			   @lists = @campaign.lists
+			   else
+             @lists =  List.all
                end
   end
 

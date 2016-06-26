@@ -5,7 +5,7 @@ controllers.controller("CampaignController", [ '$scope', '$routeParams', '$resou
       {
         'get':   {method:'GET' , params: {campaignId: '@id'} },
         'save':   {method:'PUT'},
-        'create': {method:'POST', params: {out: "@out"}}
+        'create': {method:'POST'}
       }
     )
     if $routeParams.campaignId
@@ -19,10 +19,12 @@ controllers.controller("CampaignController", [ '$scope', '$routeParams', '$resou
     else
       $scope.campaign = {}
     $scope.lists = List.query()
+    $scope.campaign_lists = List.query(campaignId: $routeParams.campaignId)
     $scope.output = ""
     $scope.out = []
     $scope.back   = -> $location.path("/campaigns")
     $scope.edit   = -> $location.path("/campaigns/#{$scope.campaign.id}/edit")
+    $scope.view = (listId) -> $location.path("/lists/#{listId}")
     $scope.cancel = ->
       if $scope.campaign.id
         $location.path("/campaigns/#{$scope.campaign.id}")
@@ -41,13 +43,20 @@ controllers.controller("CampaignController", [ '$scope', '$routeParams', '$resou
           onError
         )
 
-    $scope.send =  ->
+    $scope.send = ->
       onError = (_httpResponse)-> flash.error = "Something went wrong"
-      Campaign.create({list_ids: JSON.stringify($scope.output), send: true},$scope.campaign,
-        ( (newCampaign)-> $location.path("/campaigns") ),
-        onError
-      )
-
+      if $scope.campaign.id
+        $scope.campaign.$save({list_ids: JSON.stringify($scope.output), send: true},
+          ( ()-> $location.path("/campaigns/#{$scope.campaign.id}") ),
+          onError)
+      else   
+        Campaign.create({list_ids: JSON.stringify($scope.output), send: true},$scope.campaign,
+          ( (newCampaign)-> $location.path("/campaigns") ),
+          onError
+        )
+    
+	  
+    
 
     $scope.delete = ->
       $scope.campaign.$delete()
