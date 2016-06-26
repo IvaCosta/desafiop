@@ -8,8 +8,8 @@ controllers.controller("AuthController", [ '$scope', '$routeParams', '$location'
     $scope.register = ->
       Auth.register($scope.user).then ->
         $location.path("/")		    		
-      
+
     $scope.logout = ->
-      Auth.logout($scope.user).then ->
-        $location.path("/")		  
+      Auth.logout().then ->
+        $location.path("/")	
 ])
